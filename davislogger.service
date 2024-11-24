@@ -1,0 +1,16 @@
+[Unit]
+Description=Davis Weatherstation Logger
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/davislogger/davislogger.py
+WorkingDirectory=/home/pi/davislogger
+StandardOutput=inherit
+StandardError=inherit
+# Restart=always
+RestartSec=60  # Setzt eine Wartezeit von 10 Sekunden zwischen den Neustarts
+TimeoutStartSec=60  # Setzt ein Timeout von 5 Minuten für den Start des Dienstes
+User=pi
+
+[Install]
+WantedBy=multi-user.target

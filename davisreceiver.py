@@ -13,14 +13,16 @@ import time
 import RPi.GPIO as GPIO
 import spidev
 
-IRQ_PIN = 16
+IRQ_PIN = 16    # gpio irg pin
+CH_ID = 1       # channel id
+
+SENSIVITY = 140
+
 ISS_FREQUENCIES = [14222256, 14226191, 14230129, 14224227, 14228161] # frequency settings
 ISS_CHANNELS = len(ISS_FREQUENCIES)
 
-TIMER_INTERVAL = 41.0/16
+TIMER_INTERVAL = (40.0 + CH_ID)/16
 MAX_HOPS = 8
-
-SENSIVITY = 190
 
 # RFM69 register names
 REG_FIFO          = 0x00
@@ -194,8 +196,8 @@ class DavisReceiver(object):
         self.valid_messages = 0
         self.lost_messages = 0
         self.hop_count = 1
-	self.lock = False;
-	self.fei_array = [0, 0, 0, 0, 0]
+        self.lock = False
+        self.fei_array = [0, 0, 0, 0, 0]
 
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(IRQ_PIN, GPIO.IN)
