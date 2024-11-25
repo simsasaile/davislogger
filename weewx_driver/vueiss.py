@@ -529,9 +529,9 @@ class VueISS(weewx.drivers.AbstractDevice):
 
                     if self.old_time != self.the_time:
                         self.old_time = self.the_time
-                        # logmsg("Remember last timestamp %d" % (self.old_time))
-                        # cursor.execute("UPDATE last_sensor SET dateTime=%d" % (self.old_time))
-                        # dbmanager.connection.commit()
+                        logmsg("Remember last timestamp %d" % (self.old_time))
+                        cursor.execute("UPDATE last_sensor SET dateTime=%d" % (self.old_time))
+                        
 
             time.sleep(15.0)
 

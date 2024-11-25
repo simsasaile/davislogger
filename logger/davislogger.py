@@ -22,12 +22,13 @@ import pymysql as mdb
 from davisreceiver import DavisReceiver
 from util import check, sensor, description
 
-LOOP_TIME = 60      # time between pressure messages in seconds
+LOOP_TIME = 60      # time between database commits
 
 
 class DataLogger(object):
     def __init__(self):
 
+        self.commit_database = False
         self.con = mdb.connect(host='localhost', database='weewx',
                                user='weewx', password='weewx', charset='latin1')
         self.cur = self.con.cursor()
@@ -87,6 +88,7 @@ class DataLogger(object):
         while True:
             ts = int(time.time())
             self.sleep(ts + LOOP_TIME - ts % LOOP_TIME)
+            self.commit_database = True
 
     def sleep(self, target):
         while True:
@@ -110,18 +112,19 @@ class DataLogger(object):
             return False
 
         logging.debug(message + " " + description(message))
-        self.store_message(message, True)
+        self.store_message(message)
         return True
 
-    def store_message(self, message, commit):
+    def store_message(self, message):
         with self.lock:
             ts = int(time.time() * 1000)
             self.cur.execute(
                 "INSERT INTO sensor(dateTime,sensor,data,description) VALUES(%s,%s,%s,%s)",
                 (ts, sensor(message), message, description(message))
             )
-            if commit:
+            if self.commit_database:
                 self.con.commit()
+                self.commit_database = False
 
 
 # the main procedure
