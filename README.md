@@ -28,8 +28,8 @@ There are two software components: A program that processes the data from the ra
  - If a ready-made RFM module for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `davisreceiver.py`.
  - To ensure the davislogger starts automatically with every Pi boot, adjust the user and paths (ExecStart and WorkingDirectory) in the `davislogger.service` file and copy it to: `sudo cp davislogger.service /etc/systemd/system/`
  - Enable the service with: `sudo systemctl enable davislogger.service` and start it with: `sudo systemctl start davislogger.service`. To check the status of the service, use: `sudo systemctl status davislogger.service`
- - Copy the driver for davislogger into Weewx: `sudo cp /home/pi/davislogger/vueiss.py /usr/share/weewx/weewx/drivers/`
- - Select the new driver: `weectl station reconfigure` and check if everything is okay: `sudo systemctl status weewx`
+ - Copy the driver for davislogger into Weewx (you find it in the davislogger-folder): `sudo cp vueiss.py /usr/share/weewx/weewx/drivers/`
+ - Select the new driver: `weectl station reconfigure` Choose the driver "VueISS" and restart weewx `sudo systemctl restart weewx`. Check if everything is okay: `sudo systemctl status weewx`
 
 Now everything should be working. Data should arrive and be displayed on the website.
 	

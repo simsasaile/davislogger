@@ -32,7 +32,7 @@ class DataLogger(object):
                                user='weewx', password='weewx', charset='latin1')
         self.cur = self.con.cursor()
 
-        # SQL query to check if the 'sensor' table exists and create it if not
+        # Check if the 'sensor' table exists and create it if not
         check_table_query = "SHOW TABLES LIKE 'sensor';"
         self.cur.execute(check_table_query)
 
@@ -55,6 +55,25 @@ class DataLogger(object):
             logging.info("Table 'sensor' has been successfully created.")
         else:
             logging.info("Table 'sensor' already exists.")
+
+        # Check if the 'last_sensor' table exists and create it if not
+        check_table_query = "SHOW TABLES LIKE 'last_sensor';"
+        self.cur.execute(check_table_query)
+
+        # If the table doesn't exist, create it
+        if not self.cur.fetchone():  # No results returned, table doesn't exist
+            logging.info("Table 'last_sensor' does not exist. Creating it now...")
+
+            create_table_query = """
+            CREATE TABLE last_sensor (
+                    dateTime BIGINT NOT NULL
+                );
+            """
+
+            self.cur.execute(create_table_query)
+            logging.info("Table 'last_sensor' has been successfully created.")
+        else:
+            logging.info("Table 'last_sensor' already exists.")
 
         self.receiver = DavisReceiver()
         self.receiver.set_handler(self.process_message)
