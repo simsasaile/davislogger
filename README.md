@@ -1,9 +1,9 @@
 **The Davis Weather Station Receiver for the Raspberry Pi works without a display / without the console. The Pi is equipped with an RFM69 radio module, which directly receives the data.**
 
 **Software Components**  
-There are two software components: A program that processes the data from the radio module and writes weather station data to a MySQL database (`davislogger.py`). The second component is a new driver for Weewx, which reads the data from the MySQL database, formats it for Weewx, and passes it on.
+There are two software components: A program that processes the data from the radio module and writes weather station data to a MySQL database (`davislogger.py`). The second component is a new driver for Weewx (vueiss.py), which reads the data from the MySQL database, and passes it to weewx.
 
-It's massivly based on the work of [buwx](https://github.com/buwx/logger). Therefore, a big thank you for that!
+The code is massivly based on the work of [buwx](https://github.com/buwx/logger). Therefore, a big thank you for that!
 
 ---
 
