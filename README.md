@@ -27,10 +27,10 @@ The code is massivly based on the work of [buwx](https://github.com/buwx/logger)
  - Activate the SPI interface `sudo raspi-config`, go to **3 Interface Options**, then **I4 SPI**, and enable it. Restart the system.
  - Install git `sudo apt install git` and clone this repository: `git clone https://github.com/simsasaile/davislogger.git` to your home folder.
  - Install libraries: `sudo apt install python3-numpy`
- - If a [ready-made RFM module](http://www.seegel-systeme.de/2015/09/02/ein-funkmodul-fuer-den-raspberry-raspyrfm/) for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `davisreceiver.py` to 22.
+ - If a [ready-made RFM module](http://www.seegel-systeme.de/2015/09/02/ein-funkmodul-fuer-den-raspberry-raspyrfm/) for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `logger/davisreceiver.py` to 22.
  - To ensure the davislogger starts automatically with every Pi boot, adjust the user and paths (ExecStart and WorkingDirectory) in the `davislogger.service` file and copy it to: `sudo cp davislogger.service /etc/systemd/system/`
  - Enable the service with: `sudo systemctl enable davislogger.service` and start it with: `sudo systemctl start davislogger.service`. To check the status of the service, use: `sudo systemctl status davislogger.service`
- - Copy the driver for davislogger into Weewx (you find it in the davislogger-folder): `sudo cp vueiss.py /usr/share/weewx/weewx/drivers/`
+ - Copy the driver for davislogger into Weewx (you find it in the davislogger-folder): `sudo cp weewx_driver/vueiss.py /usr/share/weewx/weewx/drivers/`
  - Select the new driver: `weectl station reconfigure` Choose the driver "VueISS" and restart weewx `sudo systemctl restart weewx`. Check if everything is okay: `sudo systemctl status weewx`
 
 Now everything should be working. Data should arrive and be displayed on the website.

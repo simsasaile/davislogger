@@ -1,7 +1,9 @@
+# install with pip
 pymysql
-# sudo apt-get install python3-pymysql
 argparse
 RPi.GPIO
 Numpy
+
+# or install via apt
+# sudo apt-get install python3-pymysql
 # sudo apt install python3-numpy
-util

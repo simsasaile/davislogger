@@ -3,8 +3,8 @@ Description=Davis Weatherstation Logger
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/davislogger/davislogger.py
-WorkingDirectory=/home/pi/davislogger
+ExecStart=/usr/bin/python3 /home/pi/davislogger/logger/davislogger.py
+WorkingDirectory=/home/pi/davislogger/logger
 StandardOutput=inherit
 StandardError=inherit
 # Restart=always
