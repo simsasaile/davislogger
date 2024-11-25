@@ -1,13 +1,14 @@
 [Unit]
 Description=Davis Weatherstation Logger
-After=network.target
+After=mariadb.service
+Requires=mariadb.service
 
 [Service]
 ExecStart=/usr/bin/python3 /home/pi/davislogger/logger/davislogger.py
 WorkingDirectory=/home/pi/davislogger/logger
 StandardOutput=inherit
 StandardError=inherit
-# Restart=always
+Restart=on-failure
 RestartSec=60  # Setzt eine Wartezeit von 10 Sekunden zwischen den Neustarts
 TimeoutStartSec=60  # Setzt ein Timeout von 5 Minuten für den Start des Dienstes
 User=pi

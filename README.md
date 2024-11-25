@@ -29,7 +29,7 @@ The code is massivly based on the work of [buwx](https://github.com/buwx/logger)
  - Install libraries: `sudo apt install python3-numpy`
  - If a [ready-made RFM module](http://www.seegel-systeme.de/2015/09/02/ein-funkmodul-fuer-den-raspberry-raspyrfm/) for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `logger/davisreceiver.py` to 22.
  - To ensure the davislogger starts automatically with every Pi boot, adjust the user and paths (ExecStart and WorkingDirectory) in the `davislogger.service` file and copy it to: `sudo cp davislogger.service /etc/systemd/system/`
- - Enable the service with: `sudo systemctl enable davislogger.service` and start it with: `sudo systemctl start davislogger.service`. To check the status of the service, use: `sudo systemctl status davislogger.service`
+ - Enable the service with: `sudo systemctl enable davislogger` and start it with: `sudo systemctl start davislogger`. To check the status of the service, use: `sudo systemctl status davislogger`
  - Copy the driver for davislogger into Weewx (you find it in the davislogger-folder): `sudo cp weewx_driver/vueiss.py /usr/share/weewx/weewx/drivers/`
  - Select the new driver: `weectl station reconfigure` Choose the driver "VueISS" and restart weewx `sudo systemctl restart weewx`. Check if everything is okay: `sudo systemctl status weewx`
 
