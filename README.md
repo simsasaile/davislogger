@@ -3,6 +3,8 @@
 **Software Components**  
 There are two software components: A program that processes the data from the radio module and writes weather station data to a MySQL database (`davislogger.py`). The second component is a new driver for Weewx, which reads the data from the MySQL database, formats it for Weewx, and passes it on.
 
+It's massivly based on the work of [buwx](https://github.com/buwx/logger). Therefore, a big thank you for that!
+
 ---
 
 **Installation**
@@ -20,12 +22,12 @@ There are two software components: A program that processes the data from the ra
 	Schließe MariaDB console mit `exit`
  - Next create the new database: `sudo weectl database create` More info: [Weewx Database Command](https://www.weewx.com/docs/5.1/utilities/weectl-database/) and restart weewx `sudo systemctl restart weewx`
 
-2. Receive data from the Davis weatherstaion
- - Install your RFM69 receiver
+2. Receive data from the Davis Vantage weather station
+ - Install your RFM69CW transceiver from HopeRF (https://buwx.de/index.php/technik/43-logger)
  - Activate the SPI interface `sudo raspi-config`, go to **3 Interface Options**, then **I4 SPI**, and enable it. Restart the system.
  - Install git `sudo apt install git` and clone this repository: `git clone https://github.com/simsasaile/davislogger.git` to your home folder.
  - Install libraries: `sudo apt install python3-numpy`
- - If a ready-made RFM module for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `davisreceiver.py`.
+ - If a [ready-made RFM module](http://www.seegel-systeme.de/2015/09/02/ein-funkmodul-fuer-den-raspberry-raspyrfm/) for the Pi has been purchased, you may need to adjust `IRQ_PIN` in `davisreceiver.py` to 22.
  - To ensure the davislogger starts automatically with every Pi boot, adjust the user and paths (ExecStart and WorkingDirectory) in the `davislogger.service` file and copy it to: `sudo cp davislogger.service /etc/systemd/system/`
  - Enable the service with: `sudo systemctl enable davislogger.service` and start it with: `sudo systemctl start davislogger.service`. To check the status of the service, use: `sudo systemctl status davislogger.service`
  - Copy the driver for davislogger into Weewx (you find it in the davislogger-folder): `sudo cp vueiss.py /usr/share/weewx/weewx/drivers/`
