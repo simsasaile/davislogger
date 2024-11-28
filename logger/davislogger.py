@@ -73,6 +73,14 @@ class DataLogger(object):
 
             self.cur.execute(create_table_query)
             logging.info("Table 'last_sensor' has been successfully created.")
+
+            # Insert the initial entry
+            insert_query = "INSERT INTO last_sensor (dateTime) VALUES (0);"
+            self.cur.execute(insert_query)
+            logging.info("Initial entry has been added to 'last_sensor'.")
+            
+            # Commit the changes to the database
+            self.conn.commit()
         else:
             logging.info("Table 'last_sensor' already exists.")
 
